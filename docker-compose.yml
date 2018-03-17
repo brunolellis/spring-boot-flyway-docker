@@ -1,0 +1,21 @@
+
+db:
+    image: mysql:5.7
+    ports:
+        - "3306:3306"
+    environment:
+        MYSQL_USER: user
+        MYSQL_PASSWORD: user
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: user
+
+web:
+    image: java:openjdk-8-jdk
+    working_dir: /app
+    volumes:
+        - ./target:/app
+    ports:
+        - "8080:8080"
+    command: java -jar /app/user-rest-api-0.0.1-SNAPSHOT.jar
+    links:
+        - db:db
